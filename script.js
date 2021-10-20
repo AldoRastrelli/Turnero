@@ -70,10 +70,7 @@ function loadTimeOptions(){
 
 function authenticate() {
   return gapi.auth2.getAuthInstance()
-      .signIn({api_key: 'AIzaSyDq4CykLmsYESFmwFYMS-zxtEe46S914Z4',
-      client_id: '766955097981-d1luidf104ore17lr91mvd1jis2qktnh.apps.googleusercontent.com',
-      scope: "https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/spreadsheets",
-      discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],})
+      .signIn({scope: "https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/spreadsheets"})
       .then(function() { console.log("Sign-in successful"); },
             function(err) { console.error("Error signing in", err); });
 }
@@ -105,11 +102,6 @@ function execute() {
             },
             function(err) { console.error("Execute error", err); });
 }
-
 gapi.load("client:auth2", function() {
-  gapi.auth2.init({client_id: "766955097981-d1luidf104ore17lr91mvd1jis2qktnh.apps.googleusercontent.com",
-  api_key: 'AIzaSyDq4CykLmsYESFmwFYMS-zxtEe46S914Z4',
-  scope: 'https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/spreadsheets',
-  discovery_docs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
-});
+  gapi.auth2.init({client_id: "766955097981-d1luidf104ore17lr91mvd1jis2qktnh.apps.googleusercontent.com"});
 });
