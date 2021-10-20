@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+    <!-- AddEvent script -->
+    <script type="text/javascript" src="https://addevent.com/libs/atc/1.6.1/atc.min.js" async defer></script>
+    <!-- <script async defer src="https://apis.google.com/js/api.js"
+      onload="this.onload=function(){};handleClientLoad()"
+      onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script> -->
+    <script src="https://apis.google.com/js/api.js"></script>
+    <title>Ingreso a FIUBA - MLI</title>
+
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="./style.css">
+
+    <!-- import the webpage's javascript file -->
+    <script src="./script.js" defer></script>
+</head>
+
+<body>
+    <div class="banner">
+        <img id="img-banner"
+            src="https://cdn.glitch.com/570dae3b-8df2-4710-987f-ad1e71c50925%2Fb4b08fb7-08c3-4420-8499-6a0e049002ec_19cf15a7-6b14-4131-8fd6-849a19e94a62_logo_MLI_Blanco_sinfondo_png.png?v=1619541812730">
+    </div>
+
+    <h1>Uso del Fondo FIUBA<br>Inscripción para ingreso</h1>
+
+    <p>
+        Los turnos se asignan de domingos a jueves <b>y para el día siguiente únicamente</b>.
+    </p>
+
+    <p style="color: red;">Esta página aún no está en funcionamiento. Las inscripciones hechas por este medio no se verán reflejadas en la facultad y no se podrá ingresar.</p>
+  
+    <div class="container" id="content">
+
+            <div class="row">
+                <label>Día</label>
+                <select class="form-control center" id="selectDia">
+                </select>
+            </div>
+
+            <div class="row">
+                <label id ="hora">Hora</label>
+                <select class="form-control center" id="selectHora" >
+                </select>
+            </div>
+      
+            <br>
+            <hr>
+            <br>
+
+            <div class="row">
+              <label>Apellido(s)</label>
+                <input class="form-control" id="inputApellido"/>
+            </div>
+      
+            <div class="row">
+              <label>Nombre(s)</label>
+                <input class="form-control" id="inputNombre"/>
+            </div>
+      
+            <div class="row">
+              <label>DNI</label>
+                <input class="form-control" id="inputDNI"/>
+            </div>
+      
+            <div class="row">
+              <label>Email</label>
+                  <input class="form-control" id="inputEmail"/>
+              <p class="text-muted mr-5 ml-5"><small>Vamos a usar el mail únicamente para avisarte ante cualquier eventualidad.</small> </p>                
+            </div>
+        
+            <br>
+            
+            <div class="row">
+                <button id="saveButton" class="btn btn-danger" onclick="execute()">GUARDAR</button>
+            </div>
+
+    </div>
+  
+  <div class="container" id="answer-container">
+      <p id="disclaimer" style="border: 1px solid #000; display:none">
+        </p>  
+      
+      <p id="response">
+        </p>  
+
+    </div>
+
+    <div id="prefooter" class="bfooter text-muted">
+        <div class="container">
+            <a href="https://www.instagram.com/mli.fiuba/" target="_blank">
+              <img class="img-footer"
+                    src="https://cdn.glitch.com/570dae3b-8df2-4710-987f-ad1e71c50925%2Fb4b08fb7-08c3-4420-8499-6a0e049002ec_19cf15a7-6b14-4131-8fd6-849a19e94a62_instagram.png?v=1619541816425">
+            </a>
+            <a href="https://discord.com/invite/Ws9FySm" target="_blank">
+                <img class="img-footer"
+                    src="https://cdn.glitch.com/570dae3b-8df2-4710-987f-ad1e71c50925%2Fb4b08fb7-08c3-4420-8499-6a0e049002ec_19cf15a7-6b14-4131-8fd6-849a19e94a62_discord.png?v=1619541820037">
+            </a>
+        </div>
+      <p id="contactMe" style="font-size:14px">
+        ¿Algún problema? ¿Algo no está actualizado? <a href="https://t.me/AldoRast">Avisame!</a>
+        </p>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            <div>Movimiento Linealmente Independiente - Mayo 2021</div>
+        </div>
+    </footer>
+    <script>
+
+    </script>
+</body>
+
+</html>
