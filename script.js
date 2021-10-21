@@ -6,6 +6,15 @@ weekday[2] = "Miércoles";
 weekday[3] = "Jueves";
 weekday[4] = "Viernes";
 
+
+let dia = document.getElementById("selectDia");
+let horario = document.getElementById("selectHora");
+let apellido = document.getElementById("inputApellido");
+let nombre = document.getElementById("inputNombre");
+let dni = document.getElementById("inputDNI");
+let email = document.getElementById("inputEmail");
+
+
 const outOfOffice = {
   WEEKEND:
     "<br><b>CERRADO POR FIN DE SEMANA 🏖</b> <br>No se puede sacar turno para el día de mañana.<br>Volvé el Domingo!<br><br>",
@@ -65,7 +74,7 @@ function loadDayOptions() {
   var el = document.createElement("option");
   el.textContent = date;
   el.value = date;
-  var selectDia = document.getElementById("selectDia");
+  var selectDia = dia;
   selectDia.appendChild(el);
 }
 
@@ -93,20 +102,13 @@ function loadTimeOptions() {
 function save() {
   setLoadingView();
 
-  let dia = document.getElementById("selectDia").value;
-  let horario = document.getElementById("selectHora").value;
-  let apellido = document.getElementById("inputApellido").value;
-  let nombre = document.getElementById("inputNombre").value;
-  let dni = document.getElementById("inputDNI").value;
-  let email = document.getElementById("inputEmail").value;
-
   const formData = new FormData();
-  formData.append(`${FORM_ENTRIES.Dia}`, dia);
-  formData.append(`${FORM_ENTRIES.Horario}`, horario);
-  formData.append(`${FORM_ENTRIES.Apellido}`, apellido);
-  formData.append(`${FORM_ENTRIES.Nombre}`, nombre);
-  formData.append(`${FORM_ENTRIES.DNI}`, dni);
-  formData.append(`${FORM_ENTRIES.Email}`, email);
+  formData.append(`${FORM_ENTRIES.Dia}`, dia.value);
+  formData.append(`${FORM_ENTRIES.Horario}`, horario.value);
+  formData.append(`${FORM_ENTRIES.Apellido}`, apellido.value);
+  formData.append(`${FORM_ENTRIES.Nombre}`, nombre.value);
+  formData.append(`${FORM_ENTRIES.DNI}`, dni.value);
+  formData.append(`${FORM_ENTRIES.Email}`, email.value);
 
   fetch(`${FORM}`, {
     body: formData,
@@ -133,16 +135,24 @@ function showConfirmation() {
 }
 
 function reload() {
-  document.getElementById("selectDia").value = "";
-  document.getElementById("selectHora").value = "";
-  document.getElementById("inputApellido").value = "";
-  document.getElementById("inputNombre").value = "";
-  document.getElementById("inputDNI").value = "";
-  document.getElementById("inputEmail").value = "";
+  dia.value = "";
+  hora.value = "";
+  apellido.value = "";
+  nombre.value = "";
+  dni.value = "";
+  email.value = "";
 
   setNormalView();
 }
 
 function toggleButton(ref,bttnID){
-  document.getElementById(bttnID).disabled= ((ref.value !== ref.defaultValue) ? false : true);
+
+  document.getElementById(bttnID).disabled= (
+    (dia.value !== dia.defaultValue &&
+      horario.value !== horario.defaultValue &&
+      apellido.value !== apellido.defaultValue &&
+      nombre.value !== nombre.defaultValue &&
+      dni.value !== dni.defaultValue &&
+      email.value !== email.defaultValue
+      ) ? false : true);
 }
