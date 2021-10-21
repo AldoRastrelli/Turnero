@@ -155,12 +155,3 @@ function toggleButton(ref,bttnID){
       email.value !== email.defaultValue
       ) ? false : true);
 }
-
-function counter_fn() {
-  var counter = document.getElementById("cont");
-  var count = parseInt(document.getElementById("cont").value) ? parseInt(document.getElementById("cont").value) : 0
-  count += 1 ;
-  counter.innerHTML = count;
-  counter.value = count;
-}
-window.onload = counter_fn;
