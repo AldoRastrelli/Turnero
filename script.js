@@ -134,6 +134,7 @@ function setNormalView() {
   var button = document.getElementById("saveButton");
   button.innerHTML = "GUARDAR";
   button.disabled = true;
+  checkCapacity();
 }
 
 function showConfirmation() {
@@ -175,6 +176,10 @@ function update_inscriptions() {
 }
 
 window.onload = function() {
+  checkCapacity();
+};
+
+function checkCapacity() {
   var xhr = new XMLHttpRequest();
     let today = new Date();
     let idToday =  getStringDate(today,'');
@@ -191,6 +196,5 @@ window.onload = function() {
         }
     }
     xhr.send();
-};
-
+}
 
