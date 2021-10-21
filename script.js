@@ -13,6 +13,7 @@ let nombre = document.getElementById("inputNombre");
 let dni = document.getElementById("inputDNI");
 let email = document.getElementById("inputEmail");
 
+let inputs = [apellido, nombre, dni, email]
 
 const outOfOffice = {
   WEEKEND:
@@ -134,12 +135,10 @@ function showConfirmation() {
 }
 
 function reload() {
-  dia.value = "";
-  hora.value = "";
-  apellido.value = "";
-  nombre.value = "";
-  dni.value = "";
-  email.value = "";
+
+  for (pos in inputs) {
+    inputs[pos].value = "";
+  }
 
   setNormalView();
 }
