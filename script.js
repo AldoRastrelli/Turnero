@@ -6,6 +6,9 @@ weekday[2] = "Miércoles";
 weekday[3] = "Jueves";
 weekday[4] = "Viernes";
 
+let CAPACITY = 30;
+var capacityLeft;
+
 let dia = document.getElementById("selectDia");
 let horario = document.getElementById("selectHora");
 let apellido = document.getElementById("inputApellido");
@@ -13,17 +16,18 @@ let nombre = document.getElementById("inputNombre");
 let dni = document.getElementById("inputDNI");
 let email = document.getElementById("inputEmail");
 
-let inputs = [apellido, nombre, dni, email]
+let inputs = [apellido, nombre, dni, email];
 
 const outOfOffice = {
   WEEKEND:
     "<br><b>CERRADO POR FIN DE SEMANA 🏖</b> <br>No se puede sacar turno para el día de mañana.<br>Volvé el Domingo!<br><br>",
   LATE: "<br><b>CERRADO POR HOY 😴</b> <br>Ya no se pueden sacar turnos para mañana.<br><br>",
+  FULL: "<br><b>No nos quedan espacios disponibles para ingresar a FIUBA 😥 </b> <br>Ya no se pueden sacar turnos para mañana.<br><br>",
 };
 
-let closesAt = 18;
+let closesAt = 170;
 
-let horarios = ["10:00 a 13:00", "13:00 a 18:00", "10:00 a 18:00"]
+let horarios = ["10:00 a 13:00", "13:00 a 18:00", "10:00 a 18:00"];
 
 // Client ID and API key from the Developer Console
 var CLIENT_ID =
@@ -64,18 +68,18 @@ function loadDayOptions() {
 
   var date =
     dayoftheweek +
-    " " +
-    (today.getDate() + 1) +
-    "/" +
-    (today.getMonth() + 1) +
-    "/" +
-    today.getFullYear();
+    " " + getStringDate(today, "/")
 
   var el = document.createElement("option");
   el.textContent = date;
   el.value = date;
   var selectDia = dia;
   selectDia.appendChild(el);
+}
+
+function getStringDate(date, separator) {
+  console.log((date.getDate() + 1) + separator + (date.getMonth() + 1) + separator + date.getFullYear());
+  return (date.getDate() + 1) + separator + (date.getMonth() + 1) + separator + date.getFullYear();
 }
 
 function setOutOfWorkMode(reason) {
@@ -91,7 +95,6 @@ function loadTimeOptions() {
   var selectHora = document.getElementById("selectHora");
   var time = "";
   for (pos in horarios) {
-
     var el = document.createElement("option");
     el.textContent = horarios[pos];
     el.value = horarios[pos];
@@ -110,12 +113,15 @@ function save() {
   formData.append(`${FORM_ENTRIES.DNI}`, dni.value);
   formData.append(`${FORM_ENTRIES.Email}`, email.value);
 
-  fetch(`${FORM}`, {
-    body: formData,
-    method: "POST",
-  });
+  // fetch(`${FORM}`, {
+  //   body: formData,
+  //   mode: 'no-cors',
+  //   method: "POST",
+  // }).then((r) => console.log(r))
+  // .catch((r) => console.error(r));
 
   showConfirmation();
+  update_inscriptions();
 }
 
 function setLoadingView() {
@@ -127,7 +133,7 @@ function setLoadingView() {
 function setNormalView() {
   var button = document.getElementById("saveButton");
   button.innerHTML = "GUARDAR";
-  button.disabled = false;
+  button.disabled = true;
 }
 
 function showConfirmation() {
@@ -135,7 +141,6 @@ function showConfirmation() {
 }
 
 function reload() {
-
   for (pos in inputs) {
     inputs[pos].value = "";
   }
@@ -143,14 +148,49 @@ function reload() {
   setNormalView();
 }
 
-function toggleButton(ref,bttnID){
-
-  document.getElementById(bttnID).disabled= (
-    (dia.value !== dia.defaultValue &&
-      horario.value !== horario.defaultValue &&
-      apellido.value !== apellido.defaultValue &&
-      nombre.value !== nombre.defaultValue &&
-      dni.value !== dni.defaultValue &&
-      email.value !== email.defaultValue
-      ) ? false : true);
+function toggleButton(ref, bttnID) {
+  document.getElementById(bttnID).disabled =
+    dia.value !== dia.defaultValue &&
+    horario.value !== horario.defaultValue &&
+    apellido.value !== apellido.defaultValue &&
+    nombre.value !== nombre.defaultValue &&
+    dni.value !== dni.defaultValue &&
+    email.value !== email.defaultValue
+      ? false
+      : true;
 }
+
+function update_inscriptions() {
+    var xhr = new XMLHttpRequest();
+    let today = new Date();
+    let idToday =  getStringDate(today,'');
+    console.log(idToday);
+    xhr.open("GET", "https://api.countapi.xyz/hit/aldoRastrelli/" + idToday);
+    xhr.responseType = "json";
+    xhr.onload = function() {
+        let capacityLeft = CAPACITY - this.response.value
+        console.log(`Inscripción ${this.response.value} OK`);
+    }
+    xhr.send();
+}
+
+window.onload = function() {
+  var xhr = new XMLHttpRequest();
+    let today = new Date();
+    let idToday =  getStringDate(today,'');
+    console.log(idToday);
+    xhr.open("GET", "https://api.countapi.xyz/get/aldoRastrelli/" + idToday);
+    xhr.responseType = "json";
+    xhr.onload = function() {
+        let capacityLeft = CAPACITY - this.response.value
+        console.log(`Inscriptos: ${this.response.value}.`);
+        console.log(`Capacidad restante: ${capacityLeft}.`);
+        if (capacityLeft <= 0){
+          setOutOfWorkMode(outOfOffice["FULL"]);
+          return;
+        }
+    }
+    xhr.send();
+};
+
+

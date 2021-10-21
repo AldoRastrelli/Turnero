@@ -8,3 +8,5 @@ const FORM_ENTRIES = {
   DNI: "entry.959218931",
   Email: "entry.1012613271"
 };
+
+const FORM_READONLY = "https://docs.google.com/spreadsheets/d/1Ik10OHJ4aGfEXVkLkM8IwCY12jUzxpxAdJRKYsnYeAw/export?format=csv"
