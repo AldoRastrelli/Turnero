@@ -12,8 +12,9 @@ const outOfOffice = {
   LATE: "<br><b>CERRADO POR HOY 😴</b> <br>Ya no se pueden sacar turnos para mañana.<br><br>",
 };
 
-let opensAt = 8;
 let closesAt = 18;
+
+let horarios = ["10:00 a 13:00", "13:00 a 18:00", "10:00 a 18:00"]
 
 // Client ID and API key from the Developer Console
 var CLIENT_ID =
@@ -80,12 +81,11 @@ function setOutOfWorkMode(reason) {
 function loadTimeOptions() {
   var selectHora = document.getElementById("selectHora");
   var time = "";
-  for (let i = opensAt; i < closesAt; i++) {
-    time = i < 10 ? "0" + i + ":00" : i + ":00";
+  for (pos in horarios) {
 
     var el = document.createElement("option");
-    el.textContent = time;
-    el.value = time;
+    el.textContent = horarios[pos];
+    el.value = horarios[pos];
     selectHora.appendChild(el);
   }
 }
