@@ -9,15 +9,6 @@ weekday[4] = "Viernes";
 let CAPACITY = 30;
 var capacityLeft;
 
-let dia = document.getElementById("selectDia");
-let horario = document.getElementById("selectHora");
-let apellido = document.getElementById("inputApellido");
-let nombre = document.getElementById("inputNombre");
-let dni = document.getElementById("inputDNI");
-let email = document.getElementById("inputEmail");
-
-let inputs = [apellido, nombre, dni, email];
-
 const outOfOffice = {
   WEEKEND:
     "<br><b>CERRADO POR FIN DE SEMANA 🏖</b> <br>No se puede sacar turno para el día de mañana.<br>Volvé el Domingo!<br><br>",
@@ -29,46 +20,68 @@ let closesAt = 17;
 
 let horarios = ["10:00 a 13:00", "13:00 a 18:00", "10:00 a 18:00"];
 
-// Client ID and API key from the Developer Console
-var CLIENT_ID =
-  "766955097981-d1luidf104ore17lr91mvd1jis2qktnh.apps.googleusercontent.com";
-var API_KEY = "AIzaSyDq4CykLmsYESFmwFYMS-zxtEe46S914Z4";
+// **** inputs *****
 
-// Array of API discovery doc URLs for APIs used by the quickstart
-var DISCOVERY_DOCS = [
-  "https://sheets.googleapis.com/$discovery/rest?version=v4",
-  "https://people.googleapis.com/$discovery/rest",
-];
+let dia = document.getElementById("selectDia");
+let horario = document.getElementById("selectHora");
+let apellido = document.getElementById("inputApellido");
+let nombre = document.getElementById("inputNombre");
+let dni = document.getElementById("inputDNI");
+let email = document.getElementById("inputEmail");
 
-// Authorization scopes required by the API; multiple scopes can be
-// included, separated by spaces.
-var SCOPES =
-  "https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/spreadsheets";
+let inputs = [apellido, nombre, dni, email];
+
+let today = getToday();
+let idToday = getStringDate(today, "");
 
 // *** executes when the app loads *****
-loadDayOptions();
-loadTimeOptions();
 
+window.onload = function () {
+  checkCapacity();
+};
+
+function checkCapacity() {
+  var xhr = new XMLHttpRequest();
+
+  xhr.open("GET", "https://api.countapi.xyz/get/aldoRastrelli/" + idToday);
+  xhr.responseType = "json";
+  xhr.onload = function () {
+    let capacityLeft = CAPACITY - this.response.value;
+    console.log(`Inscriptos: ${this.response.value}.`);
+    console.log(`Capacidad restante: ${capacityLeft}.`);
+    if (capacityLeft <= 0) {
+      setOutOfWorkMode(outOfOffice["FULL"]);
+      return;
+    }
+  };
+  xhr.send();
+
+  
+  loadDayOptions();
+  loadTimeOptions();
+}
+
+function getToday(){
+  var offset = -3;
+  let todayArg = new Date(new Date().toUTCString())
+  console.log(todayArg)
+  return todayArg
+}
 // ****** functions *******
 function loadDayOptions() {
-  var today = new Date();
-
   var dayoftheweek = today.getDay();
   dayoftheweek = weekday[dayoftheweek];
   if (!dayoftheweek) {
     setOutOfWorkMode(outOfOffice["WEEKEND"]);
     return;
   }
-
   // limits the app between working hours
   if (today.getHours() > closesAt) {
     setOutOfWorkMode(outOfOffice["LATE"]);
     return;
   }
 
-  var date =
-    dayoftheweek +
-    " " + getStringDate(today, "/")
+  var date = dayoftheweek + " " + getStringDate(today, "/");
 
   var el = document.createElement("option");
   el.textContent = date;
@@ -78,8 +91,14 @@ function loadDayOptions() {
 }
 
 function getStringDate(date, separator) {
-  console.log((date.getDate() + 1) + separator + (date.getMonth() + 1) + separator + date.getFullYear());
-  return (date.getDate() + 1) + separator + (date.getMonth() + 1) + separator + date.getFullYear();
+  return (
+    date.getDate() +
+    1 +
+    separator +
+    (date.getMonth() + 1) +
+    separator +
+    date.getFullYear()
+  );
 }
 
 function setOutOfWorkMode(reason) {
@@ -102,6 +121,8 @@ function loadTimeOptions() {
   }
 }
 
+// **** save flow ****
+
 function save() {
   setLoadingView();
 
@@ -113,12 +134,12 @@ function save() {
   formData.append(`${FORM_ENTRIES.DNI}`, dni.value);
   formData.append(`${FORM_ENTRIES.Email}`, email.value);
 
-  // fetch(`${FORM}`, {
-  //   body: formData,
-  //   mode: 'no-cors',
-  //   method: "POST",
-  // }).then((r) => console.log(r))
-  // .catch((r) => console.error(r));
+  fetch(`${FORM}`, {
+    body: formData,
+    mode: 'no-cors',
+    method: "POST",
+  }).then((r) => console.log(r))
+  .catch((r) => console.error(r));
 
   showConfirmation();
   update_inscriptions();
@@ -145,7 +166,6 @@ function reload() {
   for (pos in inputs) {
     inputs[pos].value = "";
   }
-
   setNormalView();
 }
 
@@ -162,39 +182,14 @@ function toggleButton(ref, bttnID) {
 }
 
 function update_inscriptions() {
-    var xhr = new XMLHttpRequest();
-    let today = new Date();
-    let idToday =  getStringDate(today,'');
-    console.log(idToday);
-    xhr.open("GET", "https://api.countapi.xyz/hit/aldoRastrelli/" + idToday);
-    xhr.responseType = "json";
-    xhr.onload = function() {
-        let capacityLeft = CAPACITY - this.response.value
-        console.log(`Inscripción ${this.response.value} OK`);
-    }
-    xhr.send();
-}
-
-window.onload = function() {
-  checkCapacity();
-};
-
-function checkCapacity() {
   var xhr = new XMLHttpRequest();
-    let today = new Date();
-    let idToday =  getStringDate(today,'');
-    console.log(idToday);
-    xhr.open("GET", "https://api.countapi.xyz/get/aldoRastrelli/" + idToday);
-    xhr.responseType = "json";
-    xhr.onload = function() {
-        let capacityLeft = CAPACITY - this.response.value
-        console.log(`Inscriptos: ${this.response.value}.`);
-        console.log(`Capacidad restante: ${capacityLeft}.`);
-        if (capacityLeft <= 0){
-          setOutOfWorkMode(outOfOffice["FULL"]);
-          return;
-        }
-    }
-    xhr.send();
+  let today = getToday();
+  let idToday = getStringDate(today, "");
+  xhr.open("GET", "https://api.countapi.xyz/hit/aldoRastrelli/" + idToday);
+  xhr.responseType = "json";
+  xhr.onload = function () {
+    let capacityLeft = CAPACITY - this.response.value;
+    console.log(`Inscripción ${this.response.value} OK`);
+  };
+  xhr.send();
 }
-
