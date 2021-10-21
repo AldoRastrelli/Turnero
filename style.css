@@ -76,6 +76,14 @@ label {
   width: 70%;
 }
 
-#respuesta {
-  font-size: 150%;
+#response {
+  font-size: 100%;
+  color: green;
+  animation-name: fade;
+  animation-duration: 4s;
+}
+
+@keyframes fade {
+  from {display: block}
+  to {display: none;}
 }
