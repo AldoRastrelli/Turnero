@@ -41,6 +41,21 @@
 
     <p style="color: red;">Esta página aún no está en funcionamiento. Las inscripciones hechas por este medio no se verán reflejadas en la facultad y no se podrá ingresar.</p>
     
+    <div>
+        <p>The number of visitors is : <span id="cntr">0</span></p>
+      </div>
+    
+      <script>
+        function counter_fn() {
+          var counter = document.getElementById("cntr");
+          var count = 0;
+          count = parseInt(counter.innerHTML);
+          count = count + 1;
+          counter.innerHTML = count;
+        }
+        window.onload = counter_fn;
+      </script>
+
     <div class="container" id="content">
 
             <div class="row">
@@ -96,7 +111,7 @@
                     <button type="button" class="close" data-dismiss="modal" onclick="reload()">&times;</button>
                     </div>
                     <div class="modal-body">
-                    <p>Te inscribiste correctamente!</p>
+                    <p>Te inscribiste correctamente!<br>Te esperamos en <b>Paseo Colón 850, CABA</b>.</p>
                     </div>
                 </div>
                 

@@ -6,7 +6,6 @@ weekday[2] = "Miércoles";
 weekday[3] = "Jueves";
 weekday[4] = "Viernes";
 
-
 let dia = document.getElementById("selectDia");
 let horario = document.getElementById("selectHora");
 let apellido = document.getElementById("inputApellido");
