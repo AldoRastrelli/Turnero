@@ -6,7 +6,7 @@ weekday[2] = "Miércoles";
 weekday[3] = "Jueves";
 weekday[4] = "Viernes";
 
-let CAPACITY = 30;
+let CAPACITY = 3;
 var capacityLeft;
 
 const outOfOffice = {
@@ -63,7 +63,7 @@ function checkCapacity() {
 
 function getToday(){
   var offset = -3;
-  let todayArg = new Date(new Date().toUTCString())
+  let todayArg = new Date(new Date(2021,6,20).toUTCString())
   console.log(todayArg)
   return todayArg
 }
@@ -104,7 +104,7 @@ function getStringDate(date, separator) {
 function setOutOfWorkMode(reason) {
   var content = document.getElementById("content");
   content.style.display = "none";
-  var disclaimer = document.getElementById("disclaimer");
+  var disclaimer = document.getElementById("disclaimerBelow");
   disclaimer.innerHTML = reason;
   disclaimer.style.display = "block";
   return;
