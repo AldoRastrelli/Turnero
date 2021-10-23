@@ -39,9 +39,11 @@ let idToday = getStringDate(today, "", 0);
 // *** executes when the app loads *****
 
 window.onload = function () {
-  checkCapacity();
-  loadDayOptions();
+  $.when(checkCapacity()).then(function(){
+    loadDayOptions();
   loadTimeOptions();
+})
+
 };
 
 // ****** functions *******
@@ -50,11 +52,6 @@ function loadDayOptions() {
   var dayoftheweek = today.getDay();
   if (isWeekend(dayoftheweek)) {
     setOutOfWorkMode(outOfOffice["WEEKEND"]);
-    return;
-  }
-  // limits the app between working hours
-  if (today.getHours() >= closesAt) {
-    setOutOfWorkMode(outOfOffice["LATE"]);
     return;
   }
 
@@ -80,14 +77,20 @@ function setOutOfWorkMode(reason) {
 }
 
 function loadTimeOptions() {
+  // limits the app between working hours
+  if (today.getHours() >= closesAt) {
+    setOutOfWorkMode(outOfOffice["LATE"]);
+    return;
+  }
+
   var selectHora = document.getElementById("selectHora");
-  var time = "";
   for (pos in horarios) {
     var el = document.createElement("option");
     el.textContent = horarios[pos];
     el.value = horarios[pos];
     selectHora.appendChild(el);
   }
+  showForm()
 }
 
 // **** save flow ****
@@ -120,4 +123,9 @@ function toggleButton(ref, bttnID) {
     email.value !== email.defaultValue
       ? false
       : true;
+}
+
+function showForm() {
+  var content = document.getElementById("content");
+  content.style.display = "block";
 }
