@@ -7,7 +7,7 @@ const outOfOffice = {
   FULL: "<br><b>No nos quedan espacios disponibles para ingresar a FIUBA 😥 </b> <br>Ya no se pueden sacar turnos para mañana.<br><br>",
 };
 
-const CAPACITY = 10;
+const CAPACITY = 30;
 const closesAt = 16;
 const horarios = ["10:00 a 13:00", "13:00 a 18:00", "10:00 a 18:00"];
 
