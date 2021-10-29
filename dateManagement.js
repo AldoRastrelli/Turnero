@@ -1,4 +1,6 @@
-function getToday() {
+const MONTHS = 12;
+
+function getToday() { 
   var offset = -3;
   let todayArg = new Date(new Date().toUTCString());
   console.log(todayArg);
@@ -14,5 +16,21 @@ function isWeekend(day) {
 }
 
 function getStringDate(date, separator, extraFactor) {
-    return (date.getDate() + extraFactor + separator + (date.getMonth() + 1) + separator + date.getFullYear());
+  // This might need a better implementation
+  var day = date.getDate() + extraFactor;
+  var month = date.getMonth() + 1;
+  var year = date.getFullYear();
+
+  let monthEnded = day > daysInMonth(month, year);
+  let yearEnded = month + 1 > MONTHS;
+
+  let newDay = monthEnded ? 1 : day;
+  let newMonth = monthEnded ? (yearEnded ? 1: month + 1 ): month;
+  let newYear = yearEnded ? (year + 1) : year;
+  return (newDay + separator + newMonth + separator + newYear);
 }
+
+function daysInMonth (month, year) {
+  return new Date(year, month, 0).getDate();
+}
+

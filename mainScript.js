@@ -127,5 +127,5 @@ function toggleButton(ref, bttnID) {
 
 function showForm() {
   var content = document.getElementById("content");
-  //content.style.display = "block";
+  content.style.display = "block";
 }
