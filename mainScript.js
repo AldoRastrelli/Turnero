@@ -13,7 +13,7 @@ const horarios = ["10:00 a 13:00", "13:00 a 18:00", "10:00 a 18:00"];
 
 // **** other consts ****
 const weekday = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
-
+var showForm = true;
 // **** inputs *****
 
 let dia = document.getElementById("selectDia");
@@ -42,6 +42,7 @@ window.onload = function () {
   $.when(checkCapacity()).then(function(){
     loadDayOptions();
   loadTimeOptions();
+  tryShowForm();
 })
 
 };
@@ -73,6 +74,7 @@ function setOutOfWorkMode(reason) {
   var disclaimer = document.getElementById("disclaimerBelow");
   disclaimer.innerHTML = reason;
   disclaimer.style.display = "block";
+  showForm = false;
   return;
 }
 
@@ -90,7 +92,6 @@ function loadTimeOptions() {
     el.value = horarios[pos];
     selectHora.appendChild(el);
   }
-  showForm()
 }
 
 // **** save flow ****
@@ -125,7 +126,8 @@ function toggleButton(ref, bttnID) {
       : true;
 }
 
-function showForm() {
+function tryShowForm() {
+  if (!showForm) { return }
   var content = document.getElementById("content");
   content.style.display = "block";
 }
