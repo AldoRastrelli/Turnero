@@ -116,7 +116,7 @@ function reload() {
 
 function toggleButton(ref, bttnID) {
   document.getElementById(bttnID).disabled =
-    dia.value !== dia.defaultValue &&
+    dia.value &&
     horario.value !== horario.defaultValue &&
     apellido.value !== apellido.defaultValue &&
     nombre.value !== nombre.defaultValue &&
