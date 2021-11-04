@@ -9,7 +9,7 @@ const outOfOffice = {
 
 const CAPACITY = 30;
 const closesAt = 16;
-const horarios = ["10:00 a 13:00", "13:00 a 18:00", "10:00 a 18:00"];
+const horarios = ["11:00 a 14:00", "14:00 a 17:00", "11:00 a 17:00"];
 
 // **** other consts ****
 const weekday = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
