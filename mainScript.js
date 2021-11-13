@@ -11,6 +11,8 @@ const CAPACITY = 30;
 const closesAt = 16;
 const horarios = ["11:00 a 14:00", "14:00 a 17:00", "11:00 a 17:00"];
 
+const HOLIDAYS = {"Lunes 22/11/2021" : "Martes 23/11/2021", "Miércoles 8/12/2021" : "Jueves 9/12/2021"}
+
 // **** other consts ****
 const weekday = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
 var showForm = true;
@@ -59,7 +61,8 @@ function loadDayOptions() {
   let weekdayDay = isFriday(dayoftheweek) ? weekday[0] : weekday[dayoftheweek];
   let extraFactor = isFriday(dayoftheweek) ? 3 : 1;
 
-  let date = weekdayDay + " " + getStringDate(today, "/", extraFactor);
+  var date = weekdayDay + " " + getStringDate(today, "/", extraFactor);
+  date = changeIfHoliday(date)
 
   var el = document.createElement("option");
   el.textContent = date;
