@@ -2,8 +2,7 @@ const MONTHS = 12;
 
 function getToday() { 
   var offset = -3;
-  //let todayArg = new Date(new Date().toUTCString());
-  let todayArg = new Date(2021,11, 31);
+  let todayArg = new Date(new Date().toUTCString());
   console.log(todayArg);
   return todayArg;
 }
@@ -23,10 +22,13 @@ function getStringDate(date, separator, extraFactor) {
   var year = date.getFullYear();
 
   let monthEnded = day > daysInMonth(month, year);
-  let yearEnded = month > MONTHS;
+  let yearEnded = monthEnded && month + 1 > MONTHS;
 
-  let newDay = monthEnded ? 1 : day;
-  let newMonth = monthEnded ? (yearEnded ? 1: month + 1 ): month;
+  let newDay = monthEnded ? extraFactor : day;
+
+  let newMonth = monthEnded ? (yearEnded ? 1 : month + 1 ): month;
+
+
   let newYear = yearEnded ? (year + 1) : year;
   return (newDay + separator + newMonth + separator + newYear);
 }
