@@ -2,8 +2,8 @@ const MONTHS = 12;
 
 function getToday() { 
   var offset = -3;
-  let todayArg = new Date(new Date().toUTCString());
-  //let todayArg = new Date(2021,11,7);
+  //let todayArg = new Date(new Date().toUTCString());
+  let todayArg = new Date(2021,11, 31);
   console.log(todayArg);
   return todayArg;
 }
@@ -37,4 +37,20 @@ function daysInMonth (month, year) {
 
 function changeIfHoliday(date) {
   return HOLIDAYS[date] != null ? HOLIDAYS[date] : date;
+}
+
+function getCompleteDate(date) {
+  let dayoftheweek = date.getDay()
+  let weekdayDay = isFriday(dayoftheweek) ? weekday[0] : weekday[dayoftheweek];
+  let extraFactor = isFriday(dayoftheweek) ? 3 : 1;
+
+  return weekdayDay + " " + getStringDate(date, "/", extraFactor); 
+}
+
+function isHoliday(date) {
+  let dayoftheweek = date.getDay()
+  let weekdayDay = isFriday(dayoftheweek) ? weekday[0] : weekday[dayoftheweek-1];
+  let fullDate = weekdayDay + " " + getStringDate(date, "/", 0); 
+
+  return HOLIDAYS[fullDate] != null;
 }

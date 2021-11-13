@@ -5,6 +5,7 @@ const outOfOffice = {
     "<br><b>CERRADO POR FIN DE SEMANA 🏖</b> <br>No se puede sacar turno para el día de mañana.<br>Volvé el Domingo!<br><br>",
   LATE: "<br><b>CERRADO POR HOY 😴</b> <br>Ya no se pueden sacar turnos para mañana.<br><br>",
   FULL: "<br><b>No nos quedan espacios disponibles para ingresar a FIUBA 😥 </b> <br>Ya no se pueden sacar turnos para mañana.<br><br>",
+  HOLIDAY: "<br><b>CERRADO POR FIN DE FERIADO 🗓</b> <br>No se puede sacar turno para el día de mañana.<br>Volvé el próximo día hábil!<br><br>",
 };
 
 const CAPACITY = 30;
@@ -53,15 +54,17 @@ window.onload = function () {
 
 function loadDayOptions() {
   var dayoftheweek = today.getDay();
+
   if (isWeekend(dayoftheweek)) {
     setOutOfWorkMode(outOfOffice["WEEKEND"]);
     return;
   }
+  if (isHoliday(today)) {
+    setOutOfWorkMode(outOfOffice["HOLIDAY"]);
+    return;
+  }
 
-  let weekdayDay = isFriday(dayoftheweek) ? weekday[0] : weekday[dayoftheweek];
-  let extraFactor = isFriday(dayoftheweek) ? 3 : 1;
-
-  var date = weekdayDay + " " + getStringDate(today, "/", extraFactor);
+  var date = getCompleteDate(today)
   date = changeIfHoliday(date)
 
   var el = document.createElement("option");
