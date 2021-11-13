@@ -2,8 +2,8 @@ const MONTHS = 12;
 
 function getToday() { 
   var offset = -3;
-  //let todayArg = new Date(new Date().toUTCString());
-  let todayArg = new Date(2021,11,7);
+  let todayArg = new Date(new Date().toUTCString());
+  //let todayArg = new Date(2021,11,7);
   console.log(todayArg);
   return todayArg;
 }
