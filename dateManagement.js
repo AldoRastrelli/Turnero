@@ -51,7 +51,7 @@ function getCompleteDate(date) {
 
 function isHoliday(date) {
   let dayoftheweek = date.getDay()
-  let weekdayDay = isFriday(dayoftheweek) ? weekday[0] : weekday[dayoftheweek-1];
+  let weekdayDay = weekday[dayoftheweek-1];
   let fullDate = weekdayDay + " " + getStringDate(date, "/", 0); 
 
   return HOLIDAYS[fullDate] != null;
