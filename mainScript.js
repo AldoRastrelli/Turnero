@@ -2,7 +2,7 @@
 
 const outOfOffice = {
   WEEKEND:
-    "<br><b>CERRADO POR FIN DE SEMANA 🏖️</b> <br>No se puede sacar turno para el día de mañana.<br>Volvé el próximo día hábil!<br><br>",
+    "<br><b>CERRADO POR FIN DE SEMANA ⛱️</b> <br>No se puede sacar turno para el día de mañana.<br>Volvé el próximo día hábil!<br><br>",
   LATE: "<br><b>CERRADO POR HOY 😴</b> <br>Ya no se pueden sacar turnos para mañana.<br><br>",
   FULL: "<br><b>No nos quedan espacios disponibles para ingresar a FIUBA 😥 </b> <br>Ya no se pueden sacar turnos para mañana.<br><br>",
   HOLIDAY: "<br><b>CERRADO POR HOY 🗓</b> <br>No se puede sacar turno en este momento.<br>Volvé el próximo día hábil!<br><br>",
