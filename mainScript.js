@@ -13,7 +13,7 @@ const CAPACITY = 30;
 const closesAt = 16;
 const horarios = ["11:00 a 14:00", "14:00 a 17:00", "11:00 a 17:00"];
 
-const HOLIDAYS = {"Lunes 22/11/2021" : "Martes 23/11/2021", "Miércoles 8/12/2021" : "Jueves 9/12/2021", "Viernes 26/11/2021" : "Lunes 29/11/2021"}
+const HOLIDAYS = {}
 
 // **** other consts ****
 const weekday = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
@@ -43,12 +43,11 @@ let idToday = getStringDate(today, "", 0);
 // *** executes when the app loads *****
 
 window.onload = function () {
-  setOutOfWorkMode(outOfOffice["ENERO"]);
-  // $.when(checkCapacity()).then(function(){
-  //   loadDayOptions();
-  // loadTimeOptions();
-  // tryShowForm();
-//})
+  $.when(checkCapacity()).then(function(){
+    loadDayOptions();
+  loadTimeOptions();
+  tryShowForm();
+})
 
 };
 
