@@ -86,3 +86,13 @@ label {
   from {display: block}
   to {display: none;}
 }
+
+#answer-container {
+  width:70%;
+  align-items: center;
+
+}
+
+#disclaimerBelow {
+  padding: 20px;
+}

@@ -7,6 +7,7 @@ const outOfOffice = {
   FULL: "<br><b>No nos quedan espacios disponibles para ingresar a FIUBA 😥 </b> <br>Ya no se pueden sacar turnos para mañana.<br><br>",
   HOLIDAY: "<br><b>CERRADO POR HOY 🗓</b> <br>No se puede sacar turno en este momento.<br>Volvé el próximo día hábil!<br><br>",
   ENERO: "<br><b>CERRADO DURANTE ENERO 🗓</b> <br>La Facultad permanecerá cerrada durante todo el mes de enero.<br>No se puede sacar turno por ahora!<br>Nos vemos en febrero 👋<br><br>",
+  FREEACCESS: "A partir de <b>Febrero del 2022</b>, todos los estudiantes regulares tienen el ingreso habilitado por DNI a través del sistema de molinetes.</br>Nos vemos en FIUBA!",
 };
 
 const CAPACITY = 30;
@@ -43,11 +44,12 @@ let idToday = getStringDate(today, "", 0);
 // *** executes when the app loads *****
 
 window.onload = function () {
-  $.when(checkCapacity()).then(function(){
-    loadDayOptions();
-  loadTimeOptions();
-  tryShowForm();
-})
+  setOutOfWorkMode(outOfOffice["FREEACCESS"]);
+//   $.when(checkCapacity()).then(function(){
+//     loadDayOptions();
+//   loadTimeOptions();
+//   tryShowForm();
+// })
 
 };
 
